@@ -6,3 +6,5 @@ Link for yFinance Documentation: https://pypi.org/project/yfinance/
 Requirements: 
 Python (Ideally 3.11 but 3.xx will do) \
 pip3
+
+Goal of Project: Get hired and make enough money for Mason's bachelor party strippers
