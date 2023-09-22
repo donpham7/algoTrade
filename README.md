@@ -4,5 +4,5 @@ Link for basic walkthrough of yFinance: https://towardsdatascience.com/python-ho
 Link for yFinance Documentation: https://pypi.org/project/yfinance/
 
 Requirements: 
-Python (Ideally 3.11 but 3.xx will do)\n
+Python (Ideally 3.11 but 3.xx will do) \
 pip3
