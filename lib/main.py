@@ -293,24 +293,26 @@ if __name__ == "__main__":
             print("SAVED")
 
         cmd = input("Buy (b), Sell (s), View Portfolio(v) or Other(o)?\nType Command: ")
-        if cmd == "b":
-            ticker = input("What stock do you want to buy?\n").upper()
-            superUser.buyStock(ticker)
+        match cmd:
+            case "b":
+                ticker = input("What stock do you want to buy?\n").upper()
+                superUser.buyStock(ticker)
 
-        elif cmd == "s":
-            print(*superUser.stocks.keys(), sep="\n")
-            ticker = input("What stock do you want to sell?\n").upper()
-            superUser.sellStock(ticker)
+            case "s":
+                print(*superUser.stocks.keys(), sep="\n")
+                ticker = input("What stock do you want to sell?\n").upper()
+                superUser.sellStock(ticker)
 
-        elif cmd == "v":
-            print(superUser)
-        elif cmd == "o":
-            cmd = input("Save History(s) or Reset User(r)?\n")
-            if cmd == "s":
-                superUser.saveTransactionHistory()
-                superUser.saveUser()
-            elif cmd == "r":
-                superUser.reset()
+            case "v":
+                print(superUser)
+            case "o":
+                cmd = input("Save History(s) or Reset User(r)?\n")
+                match cmd:
+                    case "s":
+                        superUser.saveTransactionHistory()
+                        superUser.saveUser()
+                    case "r":
+                        superUser.reset()
 
-        else:
-            print("ERROR: Invalid command\n")
+            case _:
+                print("ERROR: Invalid command\n")
