@@ -148,7 +148,7 @@ class user:
         return 0
 
     def saveTransactionHistory(self):
-        with open("data/transactionHistory.csv", "a") as csv_file:
+        with open("../data/transactionHistory.csv", "a") as csv_file:
             wr = csv.writer(csv_file, delimiter=",")
             for transaction in self.purchaseHistory:
                 wr.writerow(
@@ -164,15 +164,15 @@ class user:
             self.purchaseHistory = []
 
     def saveUser(self):
-        with open("data/userProfile.csv", "w") as csv_file:
+        with open("../data/userProfile.csv", "w") as csv_file:
             wr = csv.writer(csv_file, delimiter=",")
             wr.writerow([self.id, self.currentAmount])
-        with open("data/stocks.json", "w") as json_file:
+        with open("../data/stocks.json", "w") as json_file:
             stockJson = json.dumps(self.stocks)
             json_file.write(stockJson)
 
     def savePortfolio(self):
-        with open("data/portfolioHistory.csv", "a") as csv_file:
+        with open("../data/portfolioHistory.csv", "a") as csv_file:
             wr = csv.writer(csv_file, delimiter=",")
             wr.writerow([time.time(), self.currentAmount])
 
@@ -180,9 +180,9 @@ class user:
         self.currentAmount = 10000.00
         self.stocks = {}
         self.purchaseHistory = []
-        with open("data/transactionHistory.csv", "w") as csv_file:
+        with open("../data/transactionHistory.csv", "w") as csv_file:
             wr = csv.writer(csv_file, delimiter=",")
-        with open("data/portfolioHistory.csv", "w") as csv_file:
+        with open("../data/portfolioHistory.csv", "w") as csv_file:
             wr = csv.writer(csv_file, delimiter=",")
 
 
@@ -218,12 +218,12 @@ class transaction:
 # Start Script
 if __name__ == "__main__":
     # try:
-    with open("data/userProfile.csv", "r") as csv_file:
+    with open("../data/userProfile.csv", "r") as csv_file:
         wr = csv.reader(csv_file, delimiter=",")
         for line in wr:
             id = int(line[0])
             currentAmount = float(line[1])
-    with open("data/stocks.json", "r") as json_file:
+    with open("../data/stocks.json", "r") as json_file:
         stocks = json.load(json_file)
     superUser = user(id, currentAmount, stocks)
     # except:
