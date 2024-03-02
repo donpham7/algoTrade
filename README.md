@@ -38,6 +38,7 @@ VSCode
     <li>Filter top 100 stocks according to RMSE functionality</li>
     <li>Scan all of NYSE and sort by RMSE on close market time</li>
     <li>Optional: Find Javascript libraries</li>
+    <li><em>FINAL GOAL</em>: Use Past data and train model to predict future data</li>
   </ul>
 </p>
 
