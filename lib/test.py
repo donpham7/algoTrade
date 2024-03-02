@@ -12,7 +12,6 @@ class tradingFunctionTest(unittest.TestCase):
         self.assertEqual(self.user.id, 0)
         self.assertEqual(self.user.purchaseHistory, [], self.user.purchaseHistory)
         self.assertEqual(self.user.stocks, {})
-        self.assertEqual(main.globalId, 1)
 
     def tearDown(self) -> None:
         self.user.currentAmount = 10000

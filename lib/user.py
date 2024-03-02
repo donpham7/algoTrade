@@ -165,7 +165,9 @@ class user:
             self.stocks[ticker] -= int(shareCount)
             self.currentAmount += price * float(shareCount)
             self.purchaseHistory.append(
-                transaction(False, ticker, shareCount, price * float(shareCount), price)
+                transaction.transaction(
+                    False, ticker, shareCount, price * float(shareCount), price
+                )
             )
 
         print("Selling", shareCount, "shares of", ticker, "for", price, "each")
