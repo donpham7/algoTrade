@@ -271,15 +271,17 @@ class transaction:
 
 # Start Script
 if __name__ == "__main__":
-    # try:
-    with open("../data/userProfile.csv", "r") as csv_file:
-        wr = csv.reader(csv_file, delimiter=",")
-        for line in wr:
-            id = int(line[0])
-            currentAmount = float(line[1])
-    with open("../data/stocks.json", "r") as json_file:
-        stocks = json.load(json_file)
-    superUser = user(id, currentAmount, stocks)
+    try:
+        with open("../data/userProfile.csv", "r") as csv_file:
+            wr = csv.reader(csv_file, delimiter=",")
+            for line in wr:
+                id = int(line[0])
+                currentAmount = float(line[1])
+        with open("../data/stocks.json", "r") as json_file:
+            stocks = json.load(json_file)
+        superUser = user(id, currentAmount, stocks)
+    except:
+        superUser = user()
 
     saveTime = time.time()
 
