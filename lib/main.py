@@ -12,16 +12,20 @@ globalId = 0
 
 
 class user:
-    def __init__(self) -> None:
-        global globalId
-        print("globalID", int(globalId))
-        self.id = globalId
-        self.currentAmount = 10000.00
-        self.stocks = {}
-        self.purchaseHistory = []
-        globalId += 1
+    """
+    User Class is the class that stores the information for the trader
+    """
 
     def __init__(self, id=globalId, currentAmount=10000, stocks={}, purchaseHistory=[]):
+        """
+        __init__ Creates new User Class
+
+        Args:
+            id (_type_, optional): Defaults to globalId.
+            currentAmount (int, optional): Defaults to 10000.
+            stocks (dict, optional): Defaults to {}.
+            purchaseHistory (list, optional): Defaults to [].
+        """
         global globalId
         self.id = id
         self.currentAmount = currentAmount
@@ -31,6 +35,12 @@ class user:
             globalId += 1
 
     def __str__(self) -> str:
+        """
+        __str__ string format of User
+
+        Returns:
+            str: string format of User
+        """
         seperator = "*-----------------------SUMMARY------------------------*"
         userStr = "User ID: {id}\n".format(id=self.id)
         currentAmount = "Current Amount in USD: {currentAmount}\n".format(
@@ -52,6 +62,15 @@ class user:
         )
 
     def buyStock(self, ticker: str):
+        """
+        buyStock User buy stock function
+
+        Args:
+            ticker (str): Ticker symbol of a stock (ie. AAPL, MSFT, TMUS, etc.)
+
+        Returns:
+            _type_: -1 on ERROR, 0 on SUCCESS
+        """
         data = yf.download(tickers=ticker, period="1d", interval="1m")
         if data.empty:
             print("ERROR: Stock not found\n")
@@ -90,6 +109,15 @@ class user:
         return 0
 
     def sellStock(self, ticker: str):
+        """
+        sellStock User sell stock functon
+
+        Args:
+            ticker (str): Ticker symbol of a stock (ie. AAPL, MSFT, TMUS, etc.)
+
+        Returns:
+            _type_: -1 on ERROR, 0 on SUCCESS
+        """
         if ticker in self.stocks:
             shareCount = input(
                 "How many do you want to sell? ({} max)\n".format(
@@ -148,6 +176,9 @@ class user:
         return 0
 
     def saveTransactionHistory(self):
+        """
+        saveTransactionHistory Saves transaction history to a CSV file transactionHistory.csv in data folder
+        """
         with open("../data/transactionHistory.csv", "a") as csv_file:
             wr = csv.writer(csv_file, delimiter=",")
             for transaction in self.purchaseHistory:
@@ -164,6 +195,9 @@ class user:
             self.purchaseHistory = []
 
     def saveUser(self):
+        """
+        saveUser Saves user information to data folder via userProfile.csv and stock.json
+        """
         with open("../data/userProfile.csv", "w") as csv_file:
             wr = csv.writer(csv_file, delimiter=",")
             wr.writerow([self.id, self.currentAmount])
@@ -172,11 +206,17 @@ class user:
             json_file.write(stockJson)
 
     def savePortfolio(self):
+        """
+        savePortfolio saves Portfolio value to portfolioHistory.csv
+        """
         with open("../data/portfolioHistory.csv", "a") as csv_file:
             wr = csv.writer(csv_file, delimiter=",")
             wr.writerow([time.time(), self.currentAmount])
 
     def reset(self):
+        """
+        reset Resets User to default values (Not including ID)
+        """
         self.currentAmount = 10000.00
         self.stocks = {}
         self.purchaseHistory = []
@@ -190,9 +230,23 @@ transactionId = 0
 
 
 class transaction:
+    """
+    Transaction Class represents the buy and sell actions
+    """
+
     def __init__(
         self, isBuy, stockTicker, shares, dollarAmount, dollarsPerShare
     ) -> None:
+        """
+        __init__ Creates a Transaction
+
+        Args:
+            isBuy (bool): True if transaction was a purchase else False
+            stockTicker (_type_): Ticker symbol of a stock (ie. AAPL, MSFT, TMUS, etc.)
+            shares (_type_): Amount of Shares bought/sold
+            dollarAmount (_type_): Total dollar amount of transaction
+            dollarsPerShare (_type_): Dollars per Share at time of transaction
+        """
         global transactionId
         self.transactionId = transactionId
         transactionId += 1
@@ -226,9 +280,9 @@ if __name__ == "__main__":
     with open("../data/stocks.json", "r") as json_file:
         stocks = json.load(json_file)
     superUser = user(id, currentAmount, stocks)
-    # except:
-    #   superUser = user()
+
     saveTime = time.time()
+
     while True:
         if time.time() - saveTime >= 60:
             saveTime = time.time()
