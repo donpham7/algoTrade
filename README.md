@@ -28,6 +28,7 @@ pip3 \
 VSCode
 
 <p>
+  Milestones
   <ul>
     <li>Manual Trading</li>
     <li>RMSE Functionality with Historic Data</li>
