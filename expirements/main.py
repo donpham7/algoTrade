@@ -84,34 +84,35 @@ class transaction:
   def __iter__(self):
     return iter([self.transactionId, self.isBuy, self.stockTicker, self.shares, self.dollarAmount, self.dollarsPerShare])
 
-
-superUser = user()
-while True:
-  cmd = input("Buy (b), Sell (s) or Other(o)?\n")
-  if cmd == 'b':
-    ticker = input("What stock do you want to buy?\n").upper()
-    data = yf.download(tickers=ticker, period='1d', interval='1m')
-    if data.empty:
-      print("ERROR: Stock not found\n")
+# Start Script
+if __name__ == "__main__":
+  superUser = user()
+  while True:
+    cmd = input("Buy (b), Sell (s) or Other(o)?\n")
+    if cmd == 'b':
+      ticker = input("What stock do you want to buy?\n").upper()
+      data = yf.download(tickers=ticker, period='1d', interval='1m')
+      if data.empty:
+        print("ERROR: Stock not found\n")
+      else:
+        price = float(data["Open"].iloc[-1])
+        shareCount = input("How many do you want to buy? ({} max)\n".format(int(superUser.currentAmount // price)))
+        superUser.buyStock(ticker, shareCount, price)
+    elif cmd == 's':
+      print(*superUser.stocks.keys(), sep="\n")
+      ticker = input("What stock do you want to sell?\n").upper()
+      if ticker in superUser.stocks:
+        shareCount = input("How many do you want to sell? ({} max)\n".format(int(superUser.stocks[ticker])))
+        superUser.sellStock(ticker, shareCount)
+      else:
+        print("ERROR: Stock not in possession\n")
+    elif cmd == 'o':
+      cmd = input("Save Transaction History(s)?\n")
+      if cmd == 's':
+        superUser.saveTransactionHistory()
+      
     else:
-      price = float(data["Open"].iloc[-1])
-      shareCount = input("How many do you want to buy? ({} max)\n".format(int(superUser.currentAmount // price)))
-      superUser.buyStock(ticker, shareCount, price)
-  elif cmd == 's':
-    print(*superUser.stocks.keys(), sep="\n")
-    ticker = input("What stock do you want to sell?\n").upper()
-    if ticker in superUser.stocks:
-      shareCount = input("How many do you want to sell? ({} max)\n".format(int(superUser.stocks[ticker])))
-      superUser.sellStock(ticker, shareCount)
-    else:
-      print("ERROR: Stock not in possession\n")
-  elif cmd == 'o':
-    cmd = input("Save Transaction History(s)?\n")
-    if cmd == 's':
-      superUser.saveTransactionHistory()
+      print("ERROR: Invalid command\n")
     
-  else:
-    print("ERROR: Invalid command\n")
-  
-  print(superUser)
+    print(superUser)
 
