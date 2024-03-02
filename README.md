@@ -27,4 +27,17 @@ Python (Ideally 3.11 but 3.xx will do) \
 pip3 \
 VSCode
 
+<p>
+  <ul>
+    <li>Manual Trading</li>
+    <li>RMSE Functionality with Historic Data</li>
+    <li>Optional: Possibly another metric and aggregate with RMSE</li>
+    <li>Research and implement live trading techniques</li>
+    <li>Live trading with SP500 (Likely top 100) Functionality</li>
+    <li>Filter top 100 stocks according to RMSE functionality</li>
+    <li>Scan all of NYSE and sort by RMSE on close market time</li>
+    <li>Optional: Find Javascript libraries</li>
+  </ul>
+</p>
+
 Goal of Project: Get hired and make enough money for Mason's bachelor party strippers
